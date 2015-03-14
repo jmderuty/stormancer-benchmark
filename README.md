@@ -1,4 +1,3 @@
-# stormancer-benchmark
 Stormancer benchmark application
 ================================
 
