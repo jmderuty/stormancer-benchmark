@@ -20,7 +20,7 @@ namespace Benchmark.Worker
         /// <param name="args">The commandline arguments.</param>
         private static void Main(string[] args)
         {
-
+            System.Diagnostics.Debugger.Launch();
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(args[0]));
             var cts = new CancellationTokenSource();
             Run(json, cts.Token).Wait();
