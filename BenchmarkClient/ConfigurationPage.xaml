@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300" ShowsNavigationUI="False"
-	Title="ConfigurationPage">
+	Title="ConfigurationPage" Style="{DynamicResource PageStyle1}">
 	<Page.Resources>
 		<SolidColorBrush x:Key="Button.Static.Background3" Color="#FFDDDDDD"/>
 		<SolidColorBrush x:Key="Button.Static.Border3" Color="#FF707070"/>
@@ -32,6 +32,17 @@
 							<Trigger Property="IsPressed" Value="true"/>
 							<Trigger Property="IsEnabled" Value="false"/>
 						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style x:Key="PageStyle1" TargetType="{x:Type Page}">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Page}">
+						<Border Background="{TemplateBinding Background}">
+							<ContentPresenter Content="{TemplateBinding Content}"/>
+						</Border>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
