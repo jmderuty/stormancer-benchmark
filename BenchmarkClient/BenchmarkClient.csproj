@@ -118,7 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\FondXS.png" />
-    <Resource Include="Content\logo+logotypoXS.png" />
     <Resource Include="Content\logo+logotypoXS30.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
