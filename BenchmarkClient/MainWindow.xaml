@@ -9,9 +9,9 @@
 			<RowDefinition/>
 			<RowDefinition Height="20"/>
 		</Grid.RowDefinitions>
-		<Frame x:Name="mainFrame" Grid.RowSpan="3"/>
-		<Image Source="Content/FondXS.png" Stretch="Fill"/>
+		<Frame x:Name="mainFrame" Grid.Row="1"/>
 		<Image Grid.Row="2" Source="Content/FondXS.png" Stretch="Fill"/>
+		<Image Source="Content/FondXS.png" Stretch="Fill"/>
 		<Image Source="Content/logo+logotypoXS30.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 	</Grid>
 </Window>

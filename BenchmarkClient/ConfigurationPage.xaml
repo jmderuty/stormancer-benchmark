@@ -38,27 +38,27 @@
 		</Style>
 	</Page.Resources>
 
-    <Grid Margin="10,40,10,20">
+    <Grid Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
     	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="34*"/>
-    		<ColumnDefinition Width="101*"/>
-    		<ColumnDefinition Width="145*"/>
+    		<ColumnDefinition/>
+    		<ColumnDefinition Width="113.929"/>
+    		<ColumnDefinition Width="141.118"/>
     	</Grid.ColumnDefinitions>
     	<Grid.RowDefinitions>
-    		<RowDefinition/>
-    		<RowDefinition/>
-    		<RowDefinition/>
-    		<RowDefinition/>
-    		<RowDefinition Height="2*"/>
+    		<RowDefinition Height="48"/>
+    		<RowDefinition Height="48"/>
+    		<RowDefinition Height="48"/>
+    		<RowDefinition Height="48"/>
+    		<RowDefinition Height="96"/>
     	</Grid.RowDefinitions>
-		<TextBlock Foreground="#FF21427D" FontFamily="Nirmala UI" FontSize="18.667" TextWrapping="Wrap" Grid.ColumnSpan="2" VerticalAlignment="Center" FontWeight="ExtraBold" Grid.Column="1" Margin="0,-4.83,0,35.17" Grid.RowSpan="2"><Run Text="ECHO TEST CONFIGURATION"/></TextBlock>
-		<TextBlock Text="Packet size" Grid.Row="1" FontSize="13.333" VerticalAlignment="Center" Foreground="#FF21427D" Margin="10,11.133,0,11.133" Grid.Column="1" Height="17.734"/>
-		<TextBox Text="{Binding PacketSize}" AcceptsReturn="False" Grid.Column="2" Grid.Row="1" FontSize="13.333" VerticalAlignment="Center" HorizontalAlignment="Left" Background="#FFE6E7EA" UndoLimit="5" Width="50" Margin="0" Height="19.734" />
-		<TextBlock Text="Interval (ms)" Grid.Row="2" VerticalAlignment="Center" FontSize="13.333" Foreground="#FF21427D" Height="17.732" Margin="10,0,0,0" Grid.Column="1"/>
-		<TextBox Text="{Binding SendPeriod}" AcceptsReturn="False" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Width="50" HorizontalAlignment="Left" Background="#FFE6E7EA" UndoLimit="5" FontSize="13.333" Margin="0" Height="19.734" />
+		<TextBlock Foreground="#FF21427D" FontFamily="Nirmala UI" FontSize="18.667" TextWrapping="Wrap" Grid.ColumnSpan="2" VerticalAlignment="Center" FontWeight="ExtraBold" Grid.Column="1" HorizontalAlignment="Left"><Run Text="ECHO TEST CONFIGURATION"/></TextBlock>
+		<TextBlock Text="Packet size" Grid.Row="1" FontSize="13.333" VerticalAlignment="Center" Foreground="#FF21427D" Margin="10,0,0,0" Grid.Column="1"/>
+		<TextBox Text="{Binding PacketSize}" AcceptsReturn="False" Grid.Column="2" Grid.Row="1" FontSize="13.333" VerticalAlignment="Center" HorizontalAlignment="Left" Background="#FFE6E7EA" UndoLimit="5" Width="50" Margin="0" />
+		<TextBlock Text="Interval (ms)" Grid.Row="2" VerticalAlignment="Center" FontSize="13.333" Foreground="#FF21427D" Margin="10,0,0,0" Grid.Column="1"/>
+		<TextBox Text="{Binding SendPeriod}" AcceptsReturn="False" Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" Width="50" HorizontalAlignment="Left" Background="#FFE6E7EA" UndoLimit="5" FontSize="13.333" Margin="0" />
 		<TextBlock Text="Clients" Grid.Row="3" VerticalAlignment="Center" FontSize="13.333" Foreground="#FF21427D" Margin="10,0,0,0" Grid.Column="1"/>
-		<TextBox Text="{Binding ClientCount}" AcceptsReturn="False" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Width="50" HorizontalAlignment="Left" Background="#FFE6E7EA" UndoLimit="5" FontSize="13.333" Margin="0" Height="19.734" />
+		<TextBox Text="{Binding ClientCount}" AcceptsReturn="False" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Width="50" HorizontalAlignment="Left" Background="#FFE6E7EA" UndoLimit="5" FontSize="13.333" Margin="0" />
 		<Button x:Name="startBtn" Click="startBtn_Click" Content="START TEST" Grid.Row="4" Grid.ColumnSpan="2" Foreground="White" FontFamily="Nirmala UI" FontSize="16" FontWeight="ExtraBold" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="15,5" ContentTemplate="{DynamicResource Btn-green}" Style="{DynamicResource ButtonGreen}" Height="33.28" Width="120.444" Margin="10,20,0,0" Grid.Column="1"/>
-		<Button Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource ButtonBack}"/>
+		<Button Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource ButtonBack}" Height="29.83" Width="21.04" Margin="0,8,0,0" Background="{x:Null}" BorderBrush="{x:Null}"/>
 	</Grid>
 </Page>
