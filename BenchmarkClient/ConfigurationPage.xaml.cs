@@ -27,10 +27,11 @@ namespace BenchmarkClient
             this.DataContext = new ConfigViewModel();
         }
 
-       
+
         private void startBtn_Click(object sender, RoutedEventArgs e)
         {
-            var vm = (ConfigViewModel)this.DataContext;
+            var config = (ConfigViewModel)this.DataContext;
+            MainWindow.MainFrame.Navigate(new TestWindow(config.ClientCount, config));
 
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,12 @@ namespace BenchmarkClient
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public ConfigViewModel()
+        {
+            SendPeriod = 100;
+            PacketSize = 16;
+            ClientCount = 16;
+        }
         private int _sendPeriod;
         public int SendPeriod
         {
@@ -45,7 +52,24 @@ namespace BenchmarkClient
             }
         }
 
-        private void OnPropertyChanged(string propertyName = null)
+        private int _clientCount;
+
+        public int ClientCount
+        {
+            get
+            {
+                return _clientCount;
+            }
+            set
+            {
+                if(value != _clientCount)
+                {
+                    _clientCount = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             var propertyChanged = PropertyChanged;
             if(propertyChanged!=null)

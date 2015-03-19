@@ -20,9 +20,17 @@ namespace BenchmarkClient
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static Frame MainFrame
+        {
+            get;
+            private set;
+        }
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame = mainFrame;
+            MainFrame.Navigate(new ConfigurationPage());
+           
         }
     }
 }

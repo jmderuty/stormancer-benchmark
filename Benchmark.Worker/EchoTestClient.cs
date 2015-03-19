@@ -12,10 +12,17 @@ namespace Benchmark.Worker
 {
     internal class EchoTestClient
     {
-        public EchoTestClient()
+        public class Config
         {
-            Interval = 100;
-            PacketSize = 16;
+            public int PacketSize { get; set; }
+
+            public int SendPeriod { get; set; }
+        }
+        public EchoTestClient(string json)
+        {
+            var config = JsonConvert.DeserializeObject<Config>(json);
+            Interval = config.SendPeriod;
+            PacketSize = config.PacketSize;
         }
         public int Interval { get; set; }
         public int PacketSize { get; set; }
@@ -39,10 +46,10 @@ namespace Benchmark.Worker
         }
         public async Task Run(CancellationToken token)
         {
-
+            var buffer = new byte[Math.Max(PacketSize - 8, 0)];
             //var cfg = Stormancer.ClientConfiguration.ForAccount("d81fc876-6094-3d92-a3d0-86d42d866b96", "benchmark-echo");
             var cfg = Stormancer.ClientConfiguration.ForAccount("91368576-b314-1fa3-2506-1a9a8811d90d", "test");
-            cfg.ServerEndpoint = "http://ipv4.fiddler:8081";
+            cfg.ServerEndpoint = "http://localhost:8081";
 
             var client = new Stormancer.Client(cfg);
             var guid = Guid.NewGuid().ToString();
@@ -71,8 +78,10 @@ namespace Benchmark.Worker
                 var serializer = scene.Host.Serializer();
                 var msg = new Msg { SenderId = client.Id.Value, RequestId = request.Id };
                 request.Sw.Start();
-                scene.SendPacket("echo.in", s => { 
-                    serializer.Serialize(msg, s);            
+                scene.SendPacket("echo.in", s =>
+                {
+                    serializer.Serialize(msg, s);
+                    s.Write(buffer, 0, buffer.Length);
                 }, Stormancer.Core.PacketPriority.MEDIUM_PRIORITY, Stormancer.Core.PacketReliability.UNRELIABLE);
                 await Task.Delay(Interval);
 

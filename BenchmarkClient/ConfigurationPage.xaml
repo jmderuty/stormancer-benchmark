@@ -8,13 +8,13 @@
 	Title="ConfigurationPage">
 
     <StackPanel>
-        <TextBlock Text="Test configuration"/>
+        <TextBlock Text="Echo Test configuration"/>
         <TextBlock Text="Packet size"/>
         <TextBox Text="{Binding PacketSize}" AcceptsReturn="False" />
         <TextBlock Text="Interval (ms)"/>
-        <TextBox Text="{Binding Interval}"/>
+        <TextBox Text="{Binding SendPeriod}" AcceptsReturn="False" />
         <TextBlock Text="Clients"/>
-        <TextBox Text="{Binding ClientsCount}"/>
+        <TextBox Text="{Binding ClientCount}" AcceptsReturn="False" />
         <Button x:Name="startBtn" Click="startBtn_Click">Start Test</Button>
     </StackPanel>
 </Page>
