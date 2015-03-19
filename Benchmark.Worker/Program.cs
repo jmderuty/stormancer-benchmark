@@ -45,7 +45,7 @@ namespace Benchmark.Worker
             var workerConfig = JsonConvert.DeserializeObject<WorkerConfig>(json);
             var pipeHandle = workerConfig.PipeServerHandle;
             var tasks = new List<Task>();
-            System.Diagnostics.Debugger.Launch();
+            
             using (var pipeClient = new AnonymousPipeClientStream(PipeDirection.Out, pipeHandle))
             {
                 using (var writer = new StreamWriter(pipeClient))

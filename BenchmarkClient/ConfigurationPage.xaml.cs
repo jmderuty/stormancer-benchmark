@@ -26,9 +26,9 @@ namespace BenchmarkClient
 
             this.DataContext = new ConfigViewModel
             {
-                Endpoint = "http://localhost:8081",
-                AccountId = "91368576-b314-1fa3-2506-1a9a8811d90d",
-                Application = "test",
+                Endpoint = "https://api.stormancer.com",
+                AccountId = "d81fc876-6094-3d92-a3d0-86d42d866b96",
+                Application = "benchmark-echo",
                 SceneId = "test-scene"
             };
         }
