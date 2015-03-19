@@ -20,10 +20,11 @@ namespace Benchmark.Worker
         /// <param name="args">The commandline arguments.</param>
         private static void Main(string[] args)
         {
-            System.Diagnostics.Debugger.Launch();
+
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(args[0]));
             var cts = new CancellationTokenSource();
-            Run(json,cts.Token).Wait();
+            Run(json, cts.Token).Wait();
+
             //// Wait for the termination event
             //while (!TerminationRequestedEvent.WaitOne(0)) { }
             //cts.Cancel();
@@ -39,26 +40,33 @@ namespace Benchmark.Worker
             //TerminationCompletedEvent.Set();
         }
 
-        private static async Task Run(string json,CancellationToken token)
+        private static async Task Run(string json, CancellationToken token)
         {
             var workerConfig = JsonConvert.DeserializeObject<WorkerConfig>(json);
             var pipeHandle = workerConfig.PipeServerHandle;
             var tasks = new List<Task>();
-            using(var pipeClient = new AnonymousPipeClientStream(pipeHandle))
+            System.Diagnostics.Debugger.Launch();
+            using (var pipeClient = new AnonymousPipeClientStream(PipeDirection.Out, pipeHandle))
             {
                 using (var writer = new StreamWriter(pipeClient))
                 {
+                    var stats = new MetricWriter(writer);
+                    tasks.Add(stats.Run(token));
                     foreach (var cId in workerConfig.Clients)
                     {
-                        var client = new EchoTestClient (cId, workerConfig.Endpoint, json,writer);
+                        var client = new EchoTestClient(cId, workerConfig.Endpoint, json, stats);
 
-                        tasks.Add( client.Run(token));
+                        tasks.Add(client.Run(token));
                     }
+
+                    await Task.WhenAll(tasks);
                 }
+
             }
-            await Task.WhenAll(tasks);
 
         }
+
+       
 
         public class WorkerConfig
         {
@@ -69,6 +77,6 @@ namespace Benchmark.Worker
             public string Endpoint { get; set; }
         }
     }
- 
+
 
 }

@@ -18,18 +18,18 @@ namespace BenchmarkClient.ViewModels
     {
         private Dispatcher _d;
         private int _currentId;
-        public async Task StartTest(int nbClients,int maxNumberClientsPerWorker, IWorkerConfig clientConfigTemplate, CancellationToken token)
+        public async Task StartTest(int nbClients, int maxNumberClientsPerWorker, IWorkerConfig clientConfigTemplate, CancellationToken token)
         {
             _d = App.Current.Dispatcher;
 
 
             var tasks = new List<Task>();
             var i = 0;
-          
+
             while (i < nbClients)
             {
 
-                var numberClients = Math.Max(maxNumberClientsPerWorker, nbClients - i);
+                var numberClients = Math.Min(maxNumberClientsPerWorker, nbClients - i);
 
                 i += numberClients;
                 var clientIds = new int[numberClients];
@@ -45,7 +45,7 @@ namespace BenchmarkClient.ViewModels
                 var psInfos = new ProcessStartInfo("worker/benchmark.worker.exe", args);
                 psInfos.CreateNoWindow = true;
                 psInfos.UseShellExecute = false;
-                psInfos.RedirectStandardOutput = true;
+                //psInfos.RedirectStandardOutput = true;
 
                 var prc = Process.Start(psInfos);
                 tasks.Add(ConnectToWorker(clientIds, prc, pipeServer, token));
@@ -76,16 +76,30 @@ namespace BenchmarkClient.ViewModels
                     {
                         while (!token.IsCancellationRequested)
                         {
+                            //var buffer = new byte[1];
+                            //var nb = await pipeServer.ReadAsync(buffer, 0, 1);
                             var json = await reader.ReadLineAsync();
                             if (json != null)
                             {
-                                var metric = JsonConvert.DeserializeObject<Metric>(json);
-                                metric.Date = DateTime.Now;
-                                _d.Invoke(() => { AddMetric(metric); });
+                                try
+                                {
+                                    var metric = JsonConvert.DeserializeObject<Metric>(json);
+                                    metric.Date = DateTime.Now;
+                                    _d.Invoke(() => { AddMetric(metric); });
+                                }
+                                catch(Exception ex)
+                                {
+
+                                }
                             }
 
                         }
                     }
+
+                }
+                catch (Exception ex)
+                {
+
                 }
                 finally
                 {

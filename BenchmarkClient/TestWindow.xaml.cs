@@ -30,7 +30,7 @@ namespace BenchmarkClient
             var vm = new TestRunViewModel();
             DataContext = vm;
             this.Unloaded += TestWindow_Unloaded;
-            _testTask = vm.StartTest(nbClients, 4, clientConfig, _cts.Token);
+            _testTask = vm.StartTest(nbClients, 8, clientConfig, _cts.Token);
         }
 
         void TestWindow_Unloaded(object sender, RoutedEventArgs e)

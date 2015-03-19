@@ -24,7 +24,7 @@ namespace Benchmark.Worker
 
             public string SceneId { get; set; }
         }
-        public EchoTestClient(int id, string endpoint, string json, StreamWriter writer)
+        public EchoTestClient(int id, string endpoint, string json, MetricWriter writer)
         {
             var config = JsonConvert.DeserializeObject<Config>(json);
             this.Configuration = config;
@@ -37,7 +37,7 @@ namespace Benchmark.Worker
         public int Id { get; set; }
         public Config Configuration { get; set; }
         private readonly string _endpoint;
-        private StreamWriter _writer;
+        private MetricWriter _writer;
         public int Interval { get; set; }
         public int PacketSize { get; set; }
 
@@ -119,7 +119,7 @@ namespace Benchmark.Worker
                     stats.Avg /= stats.NbSamples;
                     stats.Pending = _requests.Count;
                     _currAggrLatencies.Clear();
-                    _writer.WriteLine(JsonConvert.SerializeObject(stats));
+                    _writer.Write(stats);
                 }
 
             }

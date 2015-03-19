@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MsgPack">
-      <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Client45\bin\Debug\MsgPack.dll</HintPath>
+    <Reference Include="MsgPack, Version=0.5.0.0, Culture=neutral, PublicKeyToken=a2625990d5dc0167, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\MsgPack.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -43,25 +44,31 @@
     <Reference Include="Raknet.csharp">
       <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Client45\bin\Debug\Raknet.csharp.dll</HintPath>
     </Reference>
-    <Reference Include="Stormancer.Client45">
-      <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Client45\bin\Debug\Stormancer.Client45.dll</HintPath>
+    <Reference Include="Stormancer.Client45, Version=0.4.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Stormancer.Client45.dll</HintPath>
     </Reference>
-    <Reference Include="Stormancer.Core">
-      <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Client45\bin\Debug\Stormancer.Core.dll</HintPath>
+    <Reference Include="Stormancer.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Stormancer.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Client45\bin\Debug\System.Reactive.Core.dll</HintPath>
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Client45\bin\Debug\System.Reactive.Interfaces.dll</HintPath>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Client45\bin\Debug\System.Reactive.Linq.dll</HintPath>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
     </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Client45\bin\Debug\System.Reactive.PlatformServices.dll</HintPath>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -71,12 +78,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EchoTestClient.cs" />
+    <Compile Include="MetricWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Raknet.dll" />
