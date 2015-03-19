@@ -15,6 +15,10 @@ namespace BenchmarkClient.ViewModels
 
         private readonly ObservableCollection<Metric> _metric = new ObservableCollection<Metric>();
 
+        public ClientViewModel(int id)
+        {
+            Id = id;
+        }
         public void AddMetric(Metric metric)
         {
             Metrics.Add(metric);
@@ -52,6 +56,8 @@ namespace BenchmarkClient.ViewModels
                 propertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public int Id { get; private set; }
     }
 
     class Metric
@@ -63,5 +69,7 @@ namespace BenchmarkClient.ViewModels
         public double Avg { get; set; }
 
         public DateTime Date { get; set; }
+
+        public int Id { get; set; }
     }
 }

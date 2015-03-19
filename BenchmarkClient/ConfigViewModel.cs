@@ -8,7 +8,16 @@ using System.Threading.Tasks;
 
 namespace BenchmarkClient
 {
-    public class ConfigViewModel: INotifyPropertyChanged
+    public interface IWorkerConfig
+    {
+        List<int> Clients { get; set; }
+
+        string PipeServerHandle { get; set; }
+
+        string Endpoint { get; set; }
+
+    }
+    public class ConfigViewModel: INotifyPropertyChanged, IWorkerConfig
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -77,5 +86,24 @@ namespace BenchmarkClient
                 propertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public List<int> Clients
+        {
+            get;
+            set;
+        }
+
+        public string PipeServerHandle
+        {
+            get;
+            set;
+        }
+
+        public string AccountId { get; set; }
+        public string Application { get; set; }
+
+        public string SceneId { get; set; }
+
+        public string Endpoint { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using Stormancer;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Benchmark.Worker
 {
@@ -17,17 +18,30 @@ namespace Benchmark.Worker
             public int PacketSize { get; set; }
 
             public int SendPeriod { get; set; }
+
+            public string AccountId { get; set; }
+            public string Application { get; set; }
+
+            public string SceneId { get; set; }
         }
-        public EchoTestClient(string json)
+        public EchoTestClient(int id, string endpoint, string json, StreamWriter writer)
         {
             var config = JsonConvert.DeserializeObject<Config>(json);
+            this.Configuration = config;
             Interval = config.SendPeriod;
             PacketSize = config.PacketSize;
+            _writer = writer;
+            _endpoint = endpoint;
+            Id = id;
         }
+        public int Id { get; set; }
+        public Config Configuration { get; set; }
+        private readonly string _endpoint;
+        private StreamWriter _writer;
         public int Interval { get; set; }
         public int PacketSize { get; set; }
 
-        public string SceneId { get; set; }
+
         private ConcurrentDictionary<long, Request> _requests = new ConcurrentDictionary<long, Request>();
 
         private long _curId = 0;
@@ -48,12 +62,12 @@ namespace Benchmark.Worker
         {
             var buffer = new byte[Math.Max(PacketSize - 8, 0)];
             //var cfg = Stormancer.ClientConfiguration.ForAccount("d81fc876-6094-3d92-a3d0-86d42d866b96", "benchmark-echo");
-            var cfg = Stormancer.ClientConfiguration.ForAccount("91368576-b314-1fa3-2506-1a9a8811d90d", "test");
-            cfg.ServerEndpoint = "http://localhost:8081";
+            var cfg = Stormancer.ClientConfiguration.ForAccount(Configuration.AccountId, Configuration.Application);
+            cfg.ServerEndpoint = _endpoint;
 
             var client = new Stormancer.Client(cfg);
             var guid = Guid.NewGuid().ToString();
-            var scene = await client.GetPublicScene(SceneId, guid);
+            var scene = await client.GetPublicScene(Configuration.SceneId, guid);
 
             scene.AddRoute("echo.out", p =>
             {
@@ -88,7 +102,7 @@ namespace Benchmark.Worker
                 if (DateTime.UtcNow - lastStatsUpdate > TimeSpan.FromSeconds(1))
                 {
                     lastStatsUpdate = DateTime.UtcNow;
-                    var stats = new Stats { Min = long.MaxValue, Max = long.MinValue };
+                    var stats = new Stats { Min = long.MaxValue, Max = long.MinValue, Id = Id };
                     foreach (var v in _currAggrLatencies)
                     {
                         if (stats.Min > v)
@@ -105,7 +119,7 @@ namespace Benchmark.Worker
                     stats.Avg /= stats.NbSamples;
                     stats.Pending = _requests.Count;
                     _currAggrLatencies.Clear();
-                    Console.WriteLine(JsonConvert.SerializeObject(stats));
+                    _writer.WriteLine(JsonConvert.SerializeObject(stats));
                 }
 
             }
@@ -114,6 +128,7 @@ namespace Benchmark.Worker
 
     public class Stats
     {
+        public int Id { get; set; }
         public long Min { get; set; }
         public long Max { get; set; }
         public double Avg { get; set; }

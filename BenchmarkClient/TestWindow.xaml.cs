@@ -24,13 +24,13 @@ namespace BenchmarkClient
         private CancellationTokenSource _cts = new CancellationTokenSource();
 
         private Task _testTask;
-        public TestWindow(int nbClients, object clientConfig)
+        public TestWindow(int nbClients, IWorkerConfig clientConfig)
         {
             InitializeComponent();
             var vm = new TestRunViewModel();
             DataContext = vm;
             this.Unloaded += TestWindow_Unloaded;
-            _testTask = vm.StartTest(nbClients, clientConfig, _cts.Token);
+            _testTask = vm.StartTest(nbClients, 4, clientConfig, _cts.Token);
         }
 
         void TestWindow_Unloaded(object sender, RoutedEventArgs e)
@@ -38,6 +38,6 @@ namespace BenchmarkClient
             _cts.Cancel();
         }
 
-        
+
     }
 }
