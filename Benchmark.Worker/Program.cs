@@ -7,6 +7,9 @@ using Stormancer;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using System.IO;
+using System.IO.Pipes;
 namespace Benchmark.Worker
 {
     class Program
@@ -17,6 +20,7 @@ namespace Benchmark.Worker
         /// <param name="args">The commandline arguments.</param>
         private static void Main(string[] args)
         {
+            System.Diagnostics.Debugger.Launch();
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(args[0]));
             var cts = new CancellationTokenSource();
             Run(json,cts.Token).Wait();
@@ -37,11 +41,32 @@ namespace Benchmark.Worker
 
         private static async Task Run(string json,CancellationToken token)
         {
-            var client = new EchoTestClient(json);
-            client.SceneId = "test-scene";
-            await client.Run(token);
+            var workerConfig = JsonConvert.DeserializeObject<WorkerConfig>(json);
+            var pipeHandle = workerConfig.PipeServerHandle;
+            var tasks = new List<Task>();
+            using(var pipeClient = new AnonymousPipeClientStream(pipeHandle))
+            {
+                using (var writer = new StreamWriter(pipeClient))
+                {
+                    foreach (var cId in workerConfig.Clients)
+                    {
+                        var client = new EchoTestClient (cId, workerConfig.Endpoint, json,writer);
 
+                        tasks.Add( client.Run(token));
+                    }
+                }
+            }
+            await Task.WhenAll(tasks);
 
+        }
+
+        public class WorkerConfig
+        {
+            public List<int> Clients { get; set; }
+
+            public string PipeServerHandle { get; set; }
+
+            public string Endpoint { get; set; }
         }
     }
  

@@ -24,7 +24,13 @@ namespace BenchmarkClient
         {
             InitializeComponent();
 
-            this.DataContext = new ConfigViewModel();
+            this.DataContext = new ConfigViewModel
+            {
+                Endpoint = "http://localhost:8081",
+                AccountId = "91368576-b314-1fa3-2506-1a9a8811d90d",
+                Application = "test",
+                SceneId = "test-scene"
+            };
         }
 
 
