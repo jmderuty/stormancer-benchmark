@@ -6,6 +6,37 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
 	Title="ConfigurationPage">
+	<Page.Resources>
+		<SolidColorBrush x:Key="Button.Static.Background3" Color="#FFDDDDDD"/>
+		<SolidColorBrush x:Key="Button.Static.Border3" Color="#FF707070"/>
+		<SolidColorBrush x:Key="Button.MouseOver.Background3" Color="#FFBEE6FD"/>
+		<SolidColorBrush x:Key="Button.MouseOver.Border3" Color="#FF3C7FB1"/>
+		<SolidColorBrush x:Key="Button.Pressed.Background3" Color="#FFC4E5F6"/>
+		<SolidColorBrush x:Key="Button.Pressed.Border3" Color="#FF2C628B"/>
+		<Style x:Key="BackBtn" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<TextBlock TextWrapping="Wrap" FontWeight="Bold" FontSize="21.333"><Span FontFamily="Segoe UI Symbol"><Run Text="&#xE0A9;"/></Span></TextBlock>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsDefaulted" Value="true"/>
+							<Trigger Property="IsMouseOver" Value="true"/>
+							<Trigger Property="IsPressed" Value="true"/>
+							<Trigger Property="IsEnabled" Value="false"/>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Page.Resources>
 
     <Grid Margin="10,40,10,20">
     	<Grid.ColumnDefinitions>
@@ -20,7 +51,7 @@
     		<RowDefinition/>
     		<RowDefinition Height="2*"/>
     	</Grid.RowDefinitions>
-		<TextBlock Text="ECHO TEST CONFIGURATION" Foreground="#FF21427D" FontFamily="Nirmala UI" FontSize="18.667" TextWrapping="Wrap" Grid.ColumnSpan="2" VerticalAlignment="Center" FontWeight="ExtraBold" Grid.Column="1" Margin="0,-4.83,0,35.17" Grid.RowSpan="2"/>
+		<TextBlock Foreground="#FF21427D" FontFamily="Nirmala UI" FontSize="18.667" TextWrapping="Wrap" Grid.ColumnSpan="2" VerticalAlignment="Center" FontWeight="ExtraBold" Grid.Column="1" Margin="0,-4.83,0,35.17" Grid.RowSpan="2"><Run Text="ECHO TEST CONFIGURATION"/></TextBlock>
 		<TextBlock Text="Packet size" Grid.Row="1" FontSize="13.333" VerticalAlignment="Center" Foreground="#FF21427D" Margin="10,11.133,0,11.133" Grid.Column="1" Height="17.734"/>
 		<TextBox Text="{Binding PacketSize}" AcceptsReturn="False" Grid.Column="2" Grid.Row="1" FontSize="13.333" VerticalAlignment="Center" HorizontalAlignment="Left" Background="#FFE6E7EA" UndoLimit="5" Width="50" Margin="0" Height="19.734" />
 		<TextBlock Text="Interval (ms)" Grid.Row="2" VerticalAlignment="Center" FontSize="13.333" Foreground="#FF21427D" Height="17.732" Margin="10,0,0,0" Grid.Column="1"/>
@@ -28,5 +59,6 @@
 		<TextBlock Text="Clients" Grid.Row="3" VerticalAlignment="Center" FontSize="13.333" Foreground="#FF21427D" Margin="10,0,0,0" Grid.Column="1"/>
 		<TextBox Text="{Binding ClientCount}" AcceptsReturn="False" Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" Width="50" HorizontalAlignment="Left" Background="#FFE6E7EA" UndoLimit="5" FontSize="13.333" Margin="0" Height="19.734" />
 		<Button x:Name="startBtn" Click="startBtn_Click" Content="START TEST" Grid.Row="4" Grid.ColumnSpan="2" Foreground="White" FontFamily="Nirmala UI" FontSize="16" FontWeight="ExtraBold" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="15,5" ContentTemplate="{DynamicResource Btn-green}" Style="{DynamicResource ButtonGreen}" Height="33.28" Width="120.444" Margin="10,20,0,0" Grid.Column="1"/>
+		<Button Content="" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource ButtonBack}"/>
 	</Grid>
 </Page>
