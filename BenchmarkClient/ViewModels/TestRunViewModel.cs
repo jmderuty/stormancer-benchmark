@@ -83,7 +83,7 @@ namespace BenchmarkClient.ViewModels
                             //var buffer = new byte[1];
                             //var nb = await pipeServer.ReadAsync(buffer, 0, 1);
                             var json = await reader.ReadLineAsync();
-                            if (json != null)
+                           if (json != null)
                             {
                                 try
                                 {
