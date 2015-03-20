@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -14,10 +15,18 @@ namespace BenchmarkClient.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private readonly ObservableCollection<Metric> _metric = new ObservableCollection<Metric>();
-
-        public ClientViewModel(int id)
+        private readonly Process _prc;
+        public ClientViewModel(int id, Process prc)
         {
             Id = id;
+            _prc = prc;
+        }
+        ~ClientViewModel()
+        {
+            if (_prc != null && !_prc.HasExited)
+            {
+                _prc.Kill();
+            }
         }
         public void AddMetric(Metric metric)
         {
@@ -34,7 +43,7 @@ namespace BenchmarkClient.ViewModels
             }
             set
             {
-                if(value != _lastValue)
+                if (value != _lastValue)
                 {
                     _lastValue = value;
                     OnPropertyChanged();

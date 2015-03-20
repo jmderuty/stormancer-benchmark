@@ -68,7 +68,7 @@ namespace BenchmarkClient.ViewModels
                 {
                     foreach (var cId in clients)
                     {
-                        var client = new ClientViewModel(cId);
+                        var client = new ClientViewModel(cId,prc);
                         Clients.Add(client);
                     }
                 });
