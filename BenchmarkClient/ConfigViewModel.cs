@@ -16,16 +16,19 @@ namespace BenchmarkClient
 
         string Endpoint { get; set; }
 
+        string Test { get; set; }
+
     }
     public class ConfigViewModel: INotifyPropertyChanged, IWorkerConfig
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ConfigViewModel()
+        public ConfigViewModel(string test)
         {
             SendPeriod = 100;
             PacketSize = 16;
             ClientCount = 16;
+            Test = test;
         }
         private int _sendPeriod;
         public int SendPeriod
@@ -105,5 +108,12 @@ namespace BenchmarkClient
         public string SceneId { get; set; }
 
         public string Endpoint { get; set; }
+
+
+        public string Test
+        {
+            get;
+            set;
+        }
     }
 }

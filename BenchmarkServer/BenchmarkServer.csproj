@@ -32,10 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Stormancer.Core">
-      <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Core2\bin\Debug\Stormancer.Core.dll</HintPath>
+      <HintPath>..\Libs\Stormancer.Core.dll</HintPath>
     </Reference>
     <Reference Include="Stormancer.Server">
-      <HintPath>..\..\..\..\..\Source\Workspaces\stormancer-infrastructure\Stormancer-v1\Stormancer.Proxy.Agent\bin\Debug\Stormancer.Server.dll</HintPath>
+      <HintPath>..\Libs\Stormancer.Server.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

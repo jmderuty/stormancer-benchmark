@@ -24,7 +24,7 @@ namespace Benchmark.Worker
 
             public string SceneId { get; set; }
         }
-        public EchoTestClient(int id, string endpoint, string json, MetricWriter writer)
+        public EchoTestClient(string test,int id, string endpoint, string json, MetricWriter writer)
         {
             var config = JsonConvert.DeserializeObject<Config>(json);
             this.Configuration = config;
@@ -33,7 +33,10 @@ namespace Benchmark.Worker
             _writer = writer;
             _endpoint = endpoint;
             Id = id;
+            Test = test;
         }
+
+        public string Test { get; set; }
         public int Id { get; set; }
         public Config Configuration { get; set; }
         private readonly string _endpoint;
@@ -69,17 +72,19 @@ namespace Benchmark.Worker
             var guid = Guid.NewGuid().ToString();
             var scene = await client.GetPublicScene(Configuration.SceneId, guid);
 
-            scene.AddRoute("echo.out", p =>
+            scene.AddRoute(Test+".out", p =>
             {
-
-                var msg = p.ReadObject<Msg>();
-                if (msg.SenderId == client.Id)
+                while (p.Stream.Position < p.Stream.Length)
                 {
-                    Request request;
-                    if (_requests.TryRemove(msg.RequestId, out request))
+                    var msg = p.ReadObject<Msg>();
+                    if (msg.SenderId == client.Id)
                     {
-                        request.Sw.Stop();
-                        _currAggrLatencies.Add(request.Sw.ElapsedMilliseconds);
+                        Request request;
+                        if (_requests.TryRemove(msg.RequestId, out request))
+                        {
+                            request.Sw.Stop();
+                            _currAggrLatencies.Add(request.Sw.ElapsedMilliseconds);
+                        }
                     }
                 }
             });
@@ -92,7 +97,7 @@ namespace Benchmark.Worker
                 var serializer = scene.Host.Serializer();
                 var msg = new Msg { SenderId = client.Id.Value, RequestId = request.Id };
                 request.Sw.Start();
-                scene.SendPacket("echo.in", s =>
+                scene.SendPacket(Test+".in", s =>
                 {
                     serializer.Serialize(msg, s);
                     s.Write(buffer, 0, buffer.Length);
