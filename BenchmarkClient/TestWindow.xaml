@@ -48,14 +48,14 @@
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="26"/>
-			<ColumnDefinition/>
+			<ColumnDefinition Width="90"/>
 			<ColumnDefinition/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="48"/>
 			<RowDefinition/>
 		</Grid.RowDefinitions>
-		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="PING (ms)" VerticalAlignment="Center" FontFamily="Nirmala UI" FontSize="18.667" Foreground="#FF21427D" FontWeight="ExtraBold" Grid.Column="1"/>
+		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="PING (ms)" VerticalAlignment="Center" FontFamily="Nirmala UI" FontSize="18.667" Foreground="#FF21427D" FontWeight="ExtraBold" Grid.Column="1" Grid.ColumnSpan="2"/>
 		<ListView Grid.Column="1" Grid.Row="1" Margin="0,0,0,20" BorderBrush="{x:Null}" BorderThickness="0" Style="{DynamicResource Ping}" ItemsSource="{Binding Clients}" >
 			<ListView.ItemTemplate>
 				<DataTemplate>
@@ -66,7 +66,7 @@
 			</ListView.ItemTemplate>
 			</ListView>
 		<StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,20">
-			<Button Content="STOP TEST" Style="{DynamicResource ButtonGreen}" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,0,0,20" Padding="10,5" FontFamily="Nirmala UI" FontWeight="Bold" FontSize="13.333"/>
+			<Button Content="STOP TEST" Style="{DynamicResource ButtonGreen}" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,0,0,20" Padding="10,5" FontFamily="Nirmala UI" FontWeight="Bold" FontSize="16"/>
 		</StackPanel>
 	</Grid>
 </Page>

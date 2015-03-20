@@ -9,8 +9,8 @@
 
     <Grid>
         <StackPanel>
-            <Button x:Name="requestTestBtn" Click="requestTestBtn_Click" Style="{DynamicResource ButtonGreen}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="REQUEST" FontSize="18.667" FontFamily="Nirmala UI" Foreground="White" FontWeight="ExtraBold" Padding="10,5" Margin="0,20,0,0" Width="133"/>
-            <Button x:Name="broadcastTestBtn" Click="broadcastTestBtn_Click" Style="{DynamicResource ButtonGreen}" Content="BROADCAST" FontFamily="Nirmala UI" FontSize="18.667" FontWeight="ExtraBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" Padding="10,5" Width="133"/>
+            <Button x:Name="requestTestBtn" Click="requestTestBtn_Click" Style="{DynamicResource ButtonGreen}" HorizontalAlignment="Center" VerticalAlignment="Center" Content="REQUEST" FontSize="16" FontFamily="Nirmala UI" Foreground="White" FontWeight="ExtraBold" Padding="10,5" Margin="0,20,0,0" Width="133"/>
+            <Button x:Name="broadcastTestBtn" Click="broadcastTestBtn_Click" Style="{DynamicResource ButtonGreen}" Content="BROADCAST" FontFamily="Nirmala UI" FontSize="16" FontWeight="ExtraBold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0" Padding="10,5" Width="133"/>
         </StackPanel>
     </Grid>
 </Page>
