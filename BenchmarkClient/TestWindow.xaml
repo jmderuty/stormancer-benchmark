@@ -1,23 +1,72 @@
-﻿<Page x:Class="BenchmarkClient.TestWindow"
+﻿<Page
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Test" ShowsNavigationUI="False">
-    <ListView ItemsSource="{Binding Clients}" >
-        <ListView.ItemTemplate>
-            
-            <DataTemplate>
-                
-                <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="{Binding LastValue.Avg}"/>
-                    </Grid>
-                
-            </DataTemplate>
-        </ListView.ItemTemplate>
-        
-    </ListView>
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="BenchmarkClient.TestWindow"
+        Title="Test" ShowsNavigationUI="False" d:DesignWidth="400" d:DesignHeight="195">
+	<Page.Resources>
+		<SolidColorBrush x:Key="ListBox.Static.Background" Color="#FFFFFFFF"/>
+		<SolidColorBrush x:Key="ListBox.Static.Border" Color="#FFABADB3"/>
+		<SolidColorBrush x:Key="ListBox.Disabled.Background" Color="#FFFFFFFF"/>
+		<SolidColorBrush x:Key="ListBox.Disabled.Border" Color="#FFD9D9D9"/>
+		<Style x:Key="Ping" TargetType="{x:Type ListView}">
+			<Setter Property="Background" Value="{StaticResource ListBox.Static.Background}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+			<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+			<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+			<Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+			<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type ListView}">
+						<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="true">
+							<ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
+								<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+							</ScrollViewer>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Background" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Background}"/>
+								<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Border}"/>
+							</Trigger>
+							<MultiTrigger>
+								<MultiTrigger.Conditions>
+									<Condition Property="IsGrouping" Value="true"/>
+									<Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false"/>
+								</MultiTrigger.Conditions>
+								<Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+							</MultiTrigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Page.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="26"/>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="48"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="PING (ms)" VerticalAlignment="Center" FontFamily="Nirmala UI" FontSize="18.667" Foreground="#FF21427D" FontWeight="ExtraBold" Grid.Column="1"/>
+		<ListView Grid.Column="1" Grid.Row="1" Margin="0,0,0,20" BorderBrush="{x:Null}" BorderThickness="0" Style="{DynamicResource Ping}" ItemsSource="{Binding Clients}" >
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<Grid>
+						<TextBlock Text="{Binding LastValue.Avg}"/>
+					</Grid>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+			</ListView>
+		<StackPanel Grid.Row="1" Grid.Column="2" Margin="0,0,0,20">
+			<Button Content="STOP TEST" Style="{DynamicResource ButtonGreen}" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,0,0,20" Padding="10,5" FontFamily="Nirmala UI" FontWeight="Bold" FontSize="13.333"/>
+		</StackPanel>
+	</Grid>
 </Page>
