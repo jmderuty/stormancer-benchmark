@@ -30,6 +30,7 @@ namespace BenchmarkClient.ViewModels
         }
         public void AddMetric(Metric metric)
         {
+            metric.Normalize();
             Metrics.Add(metric);
             LastValue = metric;
         }
@@ -71,6 +72,12 @@ namespace BenchmarkClient.ViewModels
 
     class Metric
     {
+        public void Normalize()
+        {
+            Min = Math.Round(Min);
+            Max = Math.Round(Max);
+            Avg = Math.Round(Avg);
+        }
         public double Min { get; set; }
 
         public double Max { get; set; }
