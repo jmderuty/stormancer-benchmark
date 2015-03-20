@@ -55,9 +55,14 @@ namespace Benchmark.Worker
                     tasks.Add(stats.Run(token));
                     foreach (var cId in workerConfig.Clients)
                     {
-                        var client = new EchoTestClient(cId, workerConfig.Endpoint, json, stats);
 
-                        tasks.Add(client.Run(token));
+                        if (workerConfig.Test == "echo" || workerConfig.Test == "broadcast")
+                        {
+                            var client = new EchoTestClient(workerConfig.Test, cId, workerConfig.Endpoint, json, stats);
+
+
+                            tasks.Add(client.Run(token));
+                        }
                     }
 
                     await Task.WhenAll(tasks);
@@ -76,6 +81,8 @@ namespace Benchmark.Worker
             public string PipeServerHandle { get; set; }
 
             public string Endpoint { get; set; }
+
+            public string Test { get; set; }
         }
     }
 

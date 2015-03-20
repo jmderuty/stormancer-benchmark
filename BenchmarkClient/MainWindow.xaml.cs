@@ -29,7 +29,7 @@ namespace BenchmarkClient
         {
             InitializeComponent();
             MainFrame = mainFrame;
-            MainFrame.Navigate(new ConfigurationPage());
+            MainFrame.Navigate(new TestSelectionPage());
            
         }
     }

@@ -1,0 +1,16 @@
+﻿<Page x:Class="BenchmarkClient.TestSelectionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+	Title="TestSelectionPage">
+
+    <Grid>
+        <StackPanel>
+            <Button x:Name="requestTestBtn" Click="requestTestBtn_Click">Request</Button>
+            <Button x:Name="broadcastTestBtn" Click="broadcastTestBtn_Click">Broadcast</Button>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -20,11 +20,11 @@ namespace BenchmarkClient
     /// </summary>
     public partial class ConfigurationPage : Page
     {
-        public ConfigurationPage()
+        public ConfigurationPage(string test)
         {
             InitializeComponent();
 
-            this.DataContext = new ConfigViewModel
+            this.DataContext = new ConfigViewModel(test)
             {
                 Endpoint = "https://api.stormancer.com",
                 AccountId = "d81fc876-6094-3d92-a3d0-86d42d866b96",
@@ -39,6 +39,11 @@ namespace BenchmarkClient
             var config = (ConfigViewModel)this.DataContext;
             MainWindow.MainFrame.Navigate(new TestWindow(config.ClientCount, config));
 
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
