@@ -50,6 +50,7 @@ namespace Benchmark.Worker
             {
                 using (var writer = new StreamWriter(pipeClient))
                 {
+                    writer.AutoFlush = true;
                     var stats = new MetricWriter(writer);
                     tasks.Add(stats.Run(token));
                     foreach (var cId in workerConfig.Clients)

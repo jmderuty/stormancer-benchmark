@@ -40,6 +40,7 @@ namespace Benchmark.Worker
             while (_queue.TryDequeue(out s))
             {
                 await _writer.WriteLineAsync(JsonConvert.SerializeObject(s));
+                
             }
 
         }

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using JobManagement;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace BenchmarkClient.ViewModels
         private int _currentId;
         public async Task StartTest(int nbClients, int maxNumberClientsPerWorker, IWorkerConfig clientConfigTemplate, CancellationToken token)
         {
+
             _d = App.Current.Dispatcher;
 
 
@@ -45,14 +47,16 @@ namespace BenchmarkClient.ViewModels
                 var psInfos = new ProcessStartInfo("worker/benchmark.worker.exe", args);
                 psInfos.CreateNoWindow = true;
                 psInfos.UseShellExecute = false;
-                //psInfos.RedirectStandardOutput = true;
 
+                //psInfos.RedirectStandardOutput = true;
+                //var prc = job.CreateProcessMayBreakAway(psInfos);
                 var prc = Process.Start(psInfos);
                 tasks.Add(ConnectToWorker(clientIds, prc, pipeServer, token));
                 await Task.Delay(2000);
             }
 
             await Task.WhenAll(tasks);
+
         }
 
         private Task ConnectToWorker(int[] clients, Process prc, AnonymousPipeServerStream pipeServer, CancellationToken token)
@@ -87,7 +91,7 @@ namespace BenchmarkClient.ViewModels
                                     metric.Date = DateTime.Now;
                                     _d.Invoke(() => { AddMetric(metric); });
                                 }
-                                catch(Exception ex)
+                                catch (Exception ex)
                                 {
 
                                 }
