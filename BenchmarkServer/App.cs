@@ -12,24 +12,22 @@ namespace Benchmark
         {
             builder.SceneTemplate("test-template", scene =>
                 {
+                    scene.AddRoute("broadcast.in", p =>
+                    {
+
+                        scene.Broadcast("broadcast.out", s => p.Stream.CopyTo(s), PacketPriority.MEDIUM_PRIORITY, PacketReliability.UNRELIABLE);
+                    });
+
                     scene.AddRoute("echo.in", p =>
                     {
 
-                        scene.Broadcast("echo.out", s => p.Stream.CopyTo(s), PacketPriority.MEDIUM_PRIORITY, PacketReliability.UNRELIABLE);
+                        p.Connection.Send("echo.out", s => p.Stream.CopyTo(s), PacketPriority.MEDIUM_PRIORITY, PacketReliability.UNRELIABLE);
                     });
                 },
-                new Dictionary<string, string> { { "description", "Broadcasts data sent to the route 'echo.in' to all connected users on the route 'echo.out'." } }
+                new Dictionary<string, string> { { "description", "Broadcasts data sent to the route 'broadcast.in' to 'broadcast.out' and echoes data sent to 'echo.in' to 'echo.out' " } }
             );
 
-            //builder.SceneTemplate("requests-test", scene =>
-            //{
-            //    scene.AddProcedure("test", async ctx => { 
-                
-                    
-            //    });
-            //},
-            //    new Dictionary<string, string> { { "description", "Test for the RPC plugin." } }
-            //);
+            
         }
     }
 
