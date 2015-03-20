@@ -69,17 +69,19 @@ namespace Benchmark.Worker
             var guid = Guid.NewGuid().ToString();
             var scene = await client.GetPublicScene(Configuration.SceneId, guid);
 
-            scene.AddRoute("echo.out", p =>
+            scene.AddRoute("broadcast.out", p =>
             {
-
-                var msg = p.ReadObject<Msg>();
-                if (msg.SenderId == client.Id)
+                while (p.Stream.Position < p.Stream.Length)
                 {
-                    Request request;
-                    if (_requests.TryRemove(msg.RequestId, out request))
+                    var msg = p.ReadObject<Msg>();
+                    if (msg.SenderId == client.Id)
                     {
-                        request.Sw.Stop();
-                        _currAggrLatencies.Add(request.Sw.ElapsedMilliseconds);
+                        Request request;
+                        if (_requests.TryRemove(msg.RequestId, out request))
+                        {
+                            request.Sw.Stop();
+                            _currAggrLatencies.Add(request.Sw.ElapsedMilliseconds);
+                        }
                     }
                 }
             });
@@ -92,7 +94,7 @@ namespace Benchmark.Worker
                 var serializer = scene.Host.Serializer();
                 var msg = new Msg { SenderId = client.Id.Value, RequestId = request.Id };
                 request.Sw.Start();
-                scene.SendPacket("echo.in", s =>
+                scene.SendPacket("broadcast.in", s =>
                 {
                     serializer.Serialize(msg, s);
                     s.Write(buffer, 0, buffer.Length);
